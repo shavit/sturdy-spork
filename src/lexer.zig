@@ -195,10 +195,6 @@ test "lexer next token" {
     var l = Lexer.init(input);
     for (testCases) |t| {
         const tkn = l.next_token();
-        if (tkn.T != t.token) {
-            std.debug.print("\n\terror reading token. Got:\n {any}\nLiteral:\n{s}\n", .{ tkn.T, tkn.literal });
-            std.debug.print("\n\ttkn={any} | args={any} {s}\n\n", .{ tkn.T, t.token, t.literal });
-        }
         try testing.expect(tkn.T == t.token);
         try testing.expect(mem.eql(u8, tkn.literal, t.literal));
     }

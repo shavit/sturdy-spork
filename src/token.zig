@@ -41,6 +41,19 @@ pub const Token = struct {
     literal: []const u8 = "",
 };
 
+//
+//      pro-mode
+//
+// bet if
+// legit/fr ==
+// rn ;
+// tho {
+// oht }
+// finese/finna return
+// hard/highkey const
+// lowkey var
+//
+
 pub fn lookup(ident: []const u8) ?Token {
     const table = std.ComptimeStringMap(Token, .{
         .{ "fn", Token{ .T = .@"fn", .literal = "fn" } },
@@ -74,7 +87,7 @@ test "token lookup" {
 
     for (testCases) |t| {
         const res: ?Token = lookup(t.arg);
-        if (res != null and t.expect != null) {
+        if (res != null or t.expect != null) {
             try testing.expect(res.?.T == t.expect.?.T);
         } else {
             try testing.expect(res == null);
